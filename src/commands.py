@@ -7,7 +7,7 @@ from config import LOG_CHANNEL_ID
 import time
 
 WHEEL_PRIZES = [
-    ("حظ اوفر", 75),  # try again equivalent
+    ("حظ اوفر", 75),  # المحاولة من جديد
     ("اعلان عن طريق البوت مجانا", 5),
     ("اعلان عن طريق everyone", 5),
     ("اعلان بالاتنين", 5),
@@ -62,7 +62,7 @@ async def register_commands(bot):
             )
             return
 
-        # Deduct 1 bonus to play
+        # عدد البونصات
         set_bonus(user_id, bonus - 1)
 
         prize = weighted_choice(WHEEL_PRIZES)
@@ -72,12 +72,12 @@ async def register_commands(bot):
             await interaction.response.send_message("🎡 حظ اوفر! حاول مرة أخرى.", ephemeral=False)
             return
 
-        # Player won a prize (not try again)
-        add_bonus(user_id, 1)  # reward for winning
+        
+        add_bonus(user_id, 1)
 
         await interaction.response.send_message(f"🎉 مبروك! لقد ربحت: **{prize}** 🎉")
 
-        # Send message in log channel mentioning role if set
+        
         guild = interaction.guild
         win_role_id = get_win_role(str(guild.id))
 
@@ -127,4 +127,5 @@ async def register_commands(bot):
             return await interaction.response.send_message("❌ Admin only.", ephemeral=True)
 
         set_bonus(str(user.id), 0)
+
         await interaction.response.send_message(f"✔ Reset {user.mention}'s bonus.")
