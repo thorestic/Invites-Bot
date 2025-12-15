@@ -9,4 +9,5 @@ def weighted_choice(choices):
         if upto + weight >= r:
             return prize
         upto += weight
-    return choices[-1][0]  # fallback
+
+    return choices[-1][0]
