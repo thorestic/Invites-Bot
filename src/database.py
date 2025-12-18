@@ -5,7 +5,7 @@ import time
 conn = sqlite3.connect("bonus.db")
 cursor = conn.cursor()
 
-# Tables creation
+
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
         user_id TEXT PRIMARY KEY,
@@ -81,4 +81,5 @@ def set_win_role(guild_id, role_id):
 def get_win_role(guild_id):
     cursor.execute("SELECT win_role_id FROM config WHERE guild_id = ?", (guild_id,))
     row = cursor.fetchone()
+
     return int(row[0]) if row else None
